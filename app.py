@@ -21,5 +21,10 @@ def submit_form():
     return jsonify({"success": True, "message": "Form submitted successfully!"})
 
 
+@app.route("/")
+def home():
+    return jsonify({"message": "Welcome to the AIDOE API!"})
+
+
 if __name__ == "__main__":
     app.run(debug=True)
