@@ -15,15 +15,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+const registerLink = document.getElementById('registerLink');
+const loginLink = document.getElementById('loginLink');
 const submit = document.getElementById('Reg_Button')
 
 submit.addEventListener('click', function (e) {
     e.preventDefault()
     const email = document.getElementById('Reg_Email').value;
     const password = document.getElementById('Reg_Password').value;
-
     const auth = getAuth();
+
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
@@ -35,4 +38,10 @@ submit.addEventListener('click', function (e) {
             const errorMessage = error.message;
         });
 
+    document.getElementById('Reg_Email').value = '';
+    document.getElementById('Reg_Password').value = '';
+
+    e.preventDefault();
+    registerForm.classList.add('hidden');
+    loginForm.classList.remove('hidden');
 });
