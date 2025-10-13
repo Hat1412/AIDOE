@@ -1,0 +1,129 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Background */
+.background {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(120deg, #4f46e5, #06b6d4, #22c55e);
+    background-size: 300% 300%;
+    animation: gradientFlow 8s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Container */
+.login-container {
+    background: #fff;
+    padding: 2.5rem 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+/* Header */
+.form-header h2 {
+    margin-bottom: 0.5rem;
+    color: #111;
+}
+
+.form-header span {
+    color: #4f46e5;
+}
+
+.form-header p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+/* Input box */
+.input-box {
+    position: relative;
+    margin-bottom: 1.2rem;
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #4f46e5;
+    font-size: 1.2rem;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 35px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.input-box input:focus {
+    border-color: #4f46e5;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    background: #4f46e5;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #3b36c8;
+}
+
+/* Switch links */
+.switch {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.switch a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.switch a:hover {
+    text-decoration: underline;
+}
+
+/* Hide register form */
+.hidden {
+    display: none;
+}
