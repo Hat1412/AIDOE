@@ -48,8 +48,10 @@
                 </div>
                 <div class="input-box">
                     <i class='bx bx-lock'></i>
-                    <input type="password" placeholder="Password" id="Reg_Password" required />
+                    <input type="password" placeholder="Password" id="Reg_Password" required
+                        title="Password must be at least 8 characters, include a number, an uppercase and a lowercase letter." />
                 </div>
+                <p id="result" style="color: red; font-style: italic; font-size: 0.9em; font-weight: normal;"></p>
                 <button type="submit" class="btn" id="Reg_Button">Register</button>
                 <p class="switch">Already have an account? <a href="#" id="loginLink">Login</a></p>
             </form>
