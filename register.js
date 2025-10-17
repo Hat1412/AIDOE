@@ -63,8 +63,9 @@ submit.addEventListener('click', function (e) {
         document.getElementById('Reg_Password').value = '';
     }
 
-    e.preventDefault();
-
     registerForm.classList.add('hidden');
     loginForm.classList.remove('hidden');
+
+    e.preventDefault();
+
 });
