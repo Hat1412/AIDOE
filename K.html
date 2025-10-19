@@ -7,8 +7,7 @@
     <title>Recuria | Login</title>
     <link rel="stylesheet" href="style.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <script type="module" src="register.js" defer></script>
-    <script type="module" src="login.js" defer></script>
+    <!-- <script type="module" src="login.js" defer></script> -->
 </head>
 
 <body>
@@ -31,49 +30,15 @@
                 <button type="submit" class="btn" id="Login_Button">Login</button>
                 <p class="switch">Don’t have an account? <a href="#" id="registerLink">Register</a></p>
             </form>
-
-            <form id="registerForm">
-                <div class="input-box">
-                    <i class='bx bx-user'></i>
-                    <input type="text" placeholder="Full Name" required />
-                </div>
-                <div class="input-box">
-                    <i class='bx bx-blocks'></i>
-                    <input type="text" placeholder="Hospital Name" required />
-                </div>
-
-                <div class="input-box">
-                    <i class='bx bx-envelope'></i>
-                    <input type="email" placeholder="Email" id="Reg_Email" required />
-                </div>
-                <div class="input-box">
-                    <i class='bx bx-lock'></i>
-                    <input type="password" placeholder="Password" id="Reg_Password" required
-                        title="Password must be at least 8 characters, include a number, an uppercase and a lowercase letter." />
-                </div>
-                <p id="result" style="color: red; font-style: italic; font-size: 0.9em; font-weight: normal;"></p>
-                <button type="submit" class="btn" id="Reg_Button">Register</button>
-                <p class="switch">Already have an account? <a href="#" id="loginLink">Login</a></p>
-            </form>
         </div>
     </div>
 
     <script>
         const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const registerLink = document.getElementById('registerLink');
         const loginLink = document.getElementById('loginLink');
-
-        registerLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginForm.classList.add('hidden');
-            registerForm.classList.remove('hidden');
-        });
 
         loginLink.addEventListener('click', (e) => {
             e.preventDefault();
-            registerForm.classList.add('hidden');
-            loginForm.classList.remove('hidden');
         });
     </script>
 </body>
