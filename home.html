@@ -133,6 +133,13 @@
         // Add new = clear form
         document.getElementById("addNew").addEventListener("click", () => {
             document.getElementById("reminderForm").reset();
+
+            const params = new URLSearchParams(window.location.search);
+            for (const [key, value] of params.entries()) {
+                const el = document.getElementById(key);
+                if (el) el.value = value;
+            }
+
         });
     </script>
 </body>
