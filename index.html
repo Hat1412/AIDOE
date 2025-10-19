@@ -78,15 +78,18 @@
 
         <form id="checkForm">
             <input type="hidden" name="action" value="check">
-            <input type="text" name="name" placeholder="Enter your name" required>
-            <input type="tel" name="phone" placeholder="Enter your phone number" required>
+            <input type="text" name="name" placeholder="Enter Name:" required>
+            <input type="tel" name="phone" placeholder="Enter Phone Number:" pattern="[0-9]{10}" required>
             <button type="submit">Continue</button>
         </form>
 
         <div class="footer">Recuria by AIDOE</div>
+        <div id="toast" class="toast"></div>
     </div>
 
     <script>
+        const toast = document.getElementById("toast");
+
         document.getElementById("checkForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -98,13 +101,26 @@
 
             const result = await response.json();
 
+            // function showToast(message, type = "success") {
+            //     toast.textContent = message;
+            //     toast.className = `toast show ${type}`;
+            //     setTimeout(() => toast.className = "toast", 200);
+            // }
+
             // Redirect to home.html
             if (result.exists) {
+                alert("Login Succesful")
+
                 const params = new URLSearchParams(result).toString();
                 window.location.href = `home.html?${params}`;
+
+
             } else {
                 const name = formData.get("name");
                 const phone = formData.get("phone");
+
+                alert("Registration Succesful")
+
                 window.location.href = `home.html?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`;
             }
         });

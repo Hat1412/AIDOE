@@ -15,6 +15,7 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
+            flex-direction: column;
         }
 
         .container {
@@ -23,7 +24,8 @@
             border-radius: 20px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             width: 90%;
-            max-width: 450px;
+            max-width: 480px;
+            margin-bottom: 2rem;
         }
 
         h2 {
@@ -110,6 +112,51 @@
         .toast.error {
             background: #e74c3c;
         }
+
+        /* ✅ History Table */
+        .history-container {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f4f4f4;
+            font-weight: 600;
+        }
+
+        td button {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        td .edit {
+            background: #3498db;
+        }
+
+        td .delete {
+            background: #e74c3c;
+        }
     </style>
 </head>
 
@@ -119,15 +166,16 @@
 
         <form id="reminderForm">
             <input type="hidden" name="action" value="save">
+            <input type="hidden" id="rowId" name="rowId">
 
             <label for="name">Patient Name</label>
             <input type="text" id="name" name="name" placeholder="Enter patient name" required>
 
             <label for="msg">Message</label>
-            <input type="text" id="msg" name="msg" placeholder="Enter Message">
+            <input type="text" id="msg" name="msg" placeholder="Enter Message" required>
 
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="+91 9876543210" pattern="[0-9]{10}" required>
+            <input type="tel" id="phone" name="phone" placeholder="123456789" pattern="[0-9]{10}" required>
 
             <label for="time">Medication / Message Timing</label>
             <input type="time" id="time" name="time" required>
@@ -144,57 +192,134 @@
         </form>
 
         <div class="actions">
+            <button id="fetchHistory">View History</button>
             <button id="addNew">Add New</button>
-            <button class="delete" id="deleteBtn">Delete</button>
         </div>
     </div>
 
-    <!-- ✅ Toast Element -->
+    <div class="history-container" id="historyContainer" style="display:none;">
+        <h3>Reminder History</h3>
+        <table id="historyTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Message</th>
+                    <th>Time</th>
+                    <th>Frequency</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
     <div id="toast" class="toast"></div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw-eD29aKH5A0eVuGfEVEHYJQktMwlaDjjtcdc-WElZAIUP3CUqAfK_lcnRqzYgiYqU/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwK9nhArIijJOSYtZXNNGFZ6HPnOEDr1wf8vUCwH_2glCRZID2GyRMYIRouIWbGnRVv/exec";
         const FORMSPREE_URL = "https://formspree.io/f/mrbydpak";
         const form = document.getElementById("reminderForm");
         const toast = document.getElementById("toast");
+        const historyContainer = document.getElementById("historyContainer");
+        const historyTableBody = document.querySelector("#historyTable tbody");
 
-        // Toast Function
+        // ✅ Toast Function
         function showToast(message, type = "success") {
             toast.textContent = message;
             toast.className = `toast show ${type}`;
-            setTimeout(() => {
-                toast.className = "toast";
-            }, 3000);
+            setTimeout(() => toast.className = "toast", 3000);
         }
 
-        // Autofill from URL
+        // ✅ Autofill from URL
         const params = new URLSearchParams(window.location.search);
         for (const [key, value] of params.entries()) {
             const el = document.getElementById(key);
             if (el) el.value = value;
         }
 
-        // Clear form for new entry
-        document.getElementById("addNew").addEventListener("click", () => form.reset());
+        // ✅ Add New Entry
+        document.getElementById("addNew").addEventListener("click", () => {
+            form.reset();
+            document.getElementById("rowId").value = "";
+        });
 
-        // Submit handler
+        // ✅ Fetch History
+        document.getElementById("fetchHistory").addEventListener("click", async () => {
+            const phone = document.getElementById("phone").value.trim();
+            const name = document.getElementById("name").value.trim();
+            if (!phone && !name) {
+                showToast("Please enter a name or phone number to fetch history.", "error");
+                return;
+            }
+
+            try {
+                const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=read&phone=${phone}&name=${name}`);
+                const data = await res.json();
+
+                if (data.status === "success" && data.data && data.data.length > 0) {
+                    historyTableBody.innerHTML = data.data.map(row => `
+            <tr>
+                <td>${row.name}</td>
+                <td>${row.phone}</td>
+                <td>${row.msg}</td>
+                <td>${row.time}</td>
+                <td>${row.frequency}</td>
+                <td>
+                    <button class="edit" onclick='editRecord(${JSON.stringify(row)})'>Edit</button>
+                    <button class="delete" onclick='deleteRecord("${row.rowId}")'>Delete</button>
+                </td>
+            </tr>
+        `).join("");
+
+                    historyContainer.style.display = "block";
+                    showToast(`${data.data.length} Records found. Scroll down to change.`)
+                } else {
+                    showToast("No records found.", "error");
+                }
+            } catch (error) {
+                console.error("Fetch error:", error);
+                showToast("Error fetching history.", "error");
+            }
+        });
+
+        // ✅ Edit Record
+        function editRecord(row) {
+            for (const key in row) {
+                if (document.getElementById(key)) {
+                    document.getElementById(key).value = row[key];
+                }
+            }
+            showToast("Record loaded for editing.");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ✅ Delete Record
+        async function deleteRecord(rowId) {
+            if (!confirm("Are you sure you want to delete this record?")) return;
+            try {
+                await fetch(`${GOOGLE_SCRIPT_URL}?action=delete&rowId=${rowId}`);
+                showToast("Record deleted successfully.");
+                document.getElementById("fetchHistory").click(); // refresh history
+            } catch (error) {
+                console.error(error);
+                showToast("Error deleting record.", "error");
+            }
+        }
+
+        // ✅ Submit Handler
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
 
             try {
-                // Send to Google Script
                 await fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: formData });
-
-                // Send to Formspree
-                await fetch(FORMSPREE_URL, {
-                    method: "POST",
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                });
+                await fetch(FORMSPREE_URL, { method: "POST", body: formData, headers: { 'Accept': 'application/json' } });
 
                 showToast("✅ Reminder saved successfully!");
                 form.reset();
+
+                document.getElementById("fetchHistory").click();
 
             } catch (error) {
                 console.error(error);
