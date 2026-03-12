@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact — AIDOE</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f6f8fb;
+            color: #0f172a;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 6vw;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #1e3a8a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1f2937;
+            font-size: .95rem;
+        }
+
+        /* PAGE */
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 140px 6vw 80px;
+        }
+
+        /* HEADER */
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .contact-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-header p {
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.7;
+            color: #6b7280;
+        }
+
+        .email {
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        /* GRID */
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        /* CARDS */
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .04);
+        }
+
+        .card h3 {
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            color: #6b7280;
+            font-size: .9rem;
+            margin-bottom: 20px;
+        }
+
+        /* FORM */
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            font-family: inherit;
+        }
+
+        textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #3b82f6;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        /* SMALL CARDS */
+
+        .side-card {
+            margin-bottom: 20px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:900px) {
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">AIDOE</div>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#solutions">Solutions</a>
+                <a href="index.html#team">Team</a>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="contact-header">
+
+            <h1>Contact Us</h1>
+
+            <p>
+                If you have any questions, partnership inquiries, or are interested in implementing
+                AIDOE solutions in your hospital or clinic, feel free to reach out to us.
+            </p>
+
+            <p class="email">Email: aidoecompany@gmail.com</p>
+
+        </div>
+
+        <div class="contact-grid">
+
+            <!-- FORM -->
+
+            <div class="card">
+
+                <h3>Send us a message</h3>
+
+                <p>Fill out the form below and we'll get back to you.</p>
+
+                <form action="https://formspree.io/f/mrbydpak" method="POST">
+
+                    <input type="text" name="name" placeholder="Name" required>
+
+                    <input type="tel" name="phone" placeholder="Phone Number (Optional)">
+
+                    <input type="email" name="email" placeholder="Email" required>
+
+                    <textarea name="message" placeholder="Message" required></textarea>
+
+                    <button type="submit">Send Message</button>
+
+                </form>
+
+            </div>
+
+            <!-- SIDE -->
+
+            <div>
+
+                <div class="card side-card">
+
+                    <h3>Email Us</h3>
+
+                    <p>
+                        For inquiries please email us directly. We'll respond as soon as possible.
+                    </p>
+
+                    <button onclick="location.href='mailto:aidoecompany@gmail.com'">
+                        Send Email
+                    </button>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Chatbot</h3>
+
+                    <p>
+                        Have a quick question? Our AI assistant will soon be available 24/7.
+                    </p>
+
+                    <button>
+                        Start Chat
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

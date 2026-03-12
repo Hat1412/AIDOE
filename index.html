@@ -9,7 +9,338 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, .75);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, .07);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 1.6rem 6vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: #1e3a8a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: .95rem;
+            color: #1f2937;
+            transition: .3s;
+        }
+
+        .nav-links a:hover {
+            color: #2a7de1;
+        }
+
+        /* LOADER */
+
+        .loader {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f7fbff;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #2a7de1;
+            z-index: 9999;
+            animation: fadeOut 2.5s ease forwards;
+            animation-delay: 2s;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* BACKGROUND */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(42, 125, 225, .12), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(42, 125, 225, .08), transparent 50%);
+            z-index: -2;
+        }
+
+        /* SECTIONS */
+
+        section {
+            min-height: 100vh;
+            padding: 8rem 12vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            opacity: 0;
+            transform: translateY(80px);
+
+            transition:
+                opacity 1s cubic-bezier(.16, 1, .3, 1),
+                transform 1s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* HEADINGS */
+
+        .solutions h2,
+        .vision h2,
+        .billboard h2,
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            color: #1e3a8a;
+        }
+
+        .solutions h2 {
+            font-size: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .vision h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .billboard h2 {
+            font-size: 2.7rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact h2 {
+            font-size: 2.6rem;
+            margin-bottom: 3rem;
+        }
+
+        .ai-lab {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10rem 12vw;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-lab::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("images_2.png") center/cover no-repeat;
+            filter: brightness(.45);
+            z-index: -2;
+        }
+
+        .ai-lab::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, .6), rgba(0, 0, 0, .6));
+            z-index: -1;
+        }
+
+        .lab-text {
+            max-width: 700px;
+        }
+
+        .ai-lab h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-lab p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: .9;
+        }
+
+        /* HERO */
+
+        .hero {
+            text-align: center;
+            align-items: center;
+        }
+
+        .hero img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(42, 125, 225, .2);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: #1e3a8a;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            margin-top: 1.5rem;
+            font-size: 1.25rem;
+            max-width: 720px;
+            line-height: 1.7;
+            opacity: .75;
+        }
+
+        /* SOLUTIONS */
+
+        .solutions {
+            text-align: center;
+        }
+
+        .solutions-grid {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 3rem;
+        }
+
+        .solution-card {
+            padding: 2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(42, 125, 225, .12);
+            transition: .35s;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(42, 125, 225, .18);
+        }
+
+        .solution-card h3 {
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+        }
+
+        /* TEXT BLOCKS */
+
+        .billboard p,
+        .vision p {
+            max-width: 900px;
+            margin: auto;
+            line-height: 1.7;
+            opacity: .8;
+        }
+
+        .vision p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            opacity: .85;
+        }
+
+        /* MEMBERS */
+
+        .members {
+            text-align: center;
+        }
+
+        .members h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            margin-bottom: 4rem;
+            color: #1e3a8a;
+        }
+
+        .members-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6rem;
+        }
+
+        .member img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+
+            filter: grayscale(100%);
+            box-shadow: 0 8px 30px rgba(42, 125, 225, .15);
+            transition: .4s;
+        }
+
+        .member img:hover {
+            filter: grayscale(0);
+            transform: scale(1.05);
+        }
+
+        .member span {
+            font-size: .9rem;
+            opacity: .6;
+        }
+
+        .quote {
+            margin-top: 1rem;
+            font-style: italic;
+            font-size: .9rem;
+            opacity: .75;
+        }
+
+        /* CONTACT */
+
+        .contact {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,11 +350,10 @@
         <div class="nav-container">
             <div class="logo">AIDOE </div>
             <div class="nav-links"><a href="#about">About</a><a href="#solutions">Solutions</a><a
-                    href="#team">Team</a><a href="#contact">Contact</a></div>
+                    href="#team">Team</a><a href="contact.html">Contact</a></div>
         </div>
     </nav>
     <section class="hero show">
-        <img src="aidoe_company_logo_2.jpg" alt="AIDOE Logo">
         <h1>Future‑Ready<br />Intelligent Healthcare</h1>
         <p>
             AIDOE builds honest, human‑centric AI systems that elevate healthcare —
@@ -42,13 +372,25 @@
         </p>
 
     </section>
+    <section class="ai-lab">
 
+        <div class="lab-text">
+            <h2>Engineering the Future of Medicine</h2>
+
+            <p>
+                AIDOE explores the frontier of intelligent healthcare systems —
+                combining clinical data, machine learning and automation to build
+                tools that empower doctors and hospitals worldwide.
+            </p>
+
+        </div>
+
+    </section>
     <section id="solutions" class="solutions">
 
         <h2>What We Build</h2>
 
         <div class="solutions-grid">
-
             <div class="solution-card">
                 <h3>AI Diagnostics</h3>
                 <p>Clinical intelligence systems designed to assist early disease detection.</p>
@@ -88,21 +430,6 @@
 
         </div>
     </section>
-
-    <section class="contact" id="contact">
-        <h2>Let’s Build the Future of Care</h2>
-
-        <form action="https://formspree.io/f/mrbydpak" method="POST" class="contact-form">
-            <input type="hidden" name="_subject" value="New AIDOE Contact Submission">
-            <input type="hidden" name="_captcha" value="false">
-
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-    </section>
-
     <script>
 
         /* Cursor Glow */
