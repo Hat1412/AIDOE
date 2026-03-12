@@ -9,237 +9,21 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap"
         rel="stylesheet">
-
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #000;
-            color: #fff;
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        /* LOADING SCREEN */
-        .loader {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            letter-spacing: 2px;
-            animation: fadeOut 2.5s ease forwards;
-            animation-delay: 2s;
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-
-        /* Animated Background */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.06), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.04), transparent 50%);
-            z-index: -2;
-        }
-
-        /* Cursor Glow */
-        .cursor-glow {
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-        }
-
-        /* SECTIONS */
-        section {
-            width: 100%;
-            min-height: 100vh;
-            padding: 8rem 12vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            opacity: 0;
-            transform: translateY(80px);
-            transition: all 1.2s cubic-bezier(.16, 1, .3, 1);
-        }
-
-        section.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* HERO */
-        .hero {
-            align-items: center;
-            text-align: center;
-        }
-
-        .hero img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 2rem;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 6vw, 5rem);
-            letter-spacing: 2px;
-        }
-
-        .hero p {
-            margin-top: 1.5rem;
-            font-size: 1.3rem;
-            max-width: 700px;
-            opacity: 0.7;
-            line-height: 1.6;
-        }
-
-        /* BILLBOARD */
-        .billboard h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            margin-bottom: 2rem;
-        }
-
-        .billboard p {
-            font-size: 1.2rem;
-            max-width: 900px;
-            line-height: 1.6;
-            opacity: 0.7;
-        }
-
-        /* MEMBERS */
-        .members {
-            text-align: center;
-        }
-
-        .members h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 5rem;
-            margin-bottom: 4rem;
-        }
-
-        .members-grid {
-            display: flex;
-            justify-content: center;
-            gap: 6rem;
-            flex-wrap: wrap;
-        }
-
-        .member img {
-            width: 210px;
-            height: 210px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            filter: grayscale(100%);
-            transition: 0.4s;
-        }
-
-        .member img:hover {
-            filter: grayscale(0%);
-            transform: scale(1.05);
-        }
-
-        .member span {
-            font-size: 0.9rem;
-            opacity: 0.6;
-        }
-
-        .quote {
-            margin-top: 1rem;
-            font-style: italic;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        /* CONTACT */
-        .contact {
-            max-width: 1000px;
-            margin: auto;
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            margin-bottom: 3rem;
-        }
-
-        .contact-form {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 14px 0;
-            color: white;
-            font-size: 1rem;
-        }
-
-        .contact-form textarea {
-            height: 140px;
-            resize: none;
-        }
-
-        .contact-form button {
-            margin-top: 1rem;
-            padding: 14px;
-            border-radius: 999px;
-            border: 1px solid white;
-            background: transparent;
-            color: white;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        .contact-form button:hover {
-            background: white;
-            color: black;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <div class="loader">Welcome to the Future</div>
-    <div class="cursor-glow"></div>
-
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">AIDOE </div>
+            <div class="nav-links"><a href="#about">About</a><a href="#solutions">Solutions</a><a
+                    href="#team">Team</a><a href="#contact">Contact</a></div>
+        </div>
+    </nav>
     <section class="hero show">
-        <img src="aidoe_company_logo.png" alt="AIDOE Logo">
+        <img src="aidoe_company_logo_2.jpg" alt="AIDOE Logo">
         <h1>Future‑Ready<br />Intelligent Healthcare</h1>
         <p>
             AIDOE builds honest, human‑centric AI systems that elevate healthcare —
@@ -247,15 +31,44 @@
         </p>
     </section>
 
-    <section class="billboard">
-        <h2>Latest Announcements</h2>
+    <section id="vision" class="vision">
+
+        <h2>The Future of Healthcare Intelligence</h2>
         <p>
-            Advancing diagnostic automation. Expanding AI-assisted clinical tools.
-            Building ethical, transparent, and scalable healthcare intelligence systems.
+            Healthcare systems generate enormous amounts of data but lack intelligent tools
+            to translate it into actionable clinical insights. AIDOE develops transparent,
+            ethical AI systems that empower doctors and institutions with reliable
+            decision-support technologies.
         </p>
+
     </section>
 
-    <section class="members">
+    <section id="solutions" class="solutions">
+
+        <h2>What We Build</h2>
+
+        <div class="solutions-grid">
+
+            <div class="solution-card">
+                <h3>AI Diagnostics</h3>
+                <p>Clinical intelligence systems designed to assist early disease detection.</p>
+            </div>
+
+            <div class="solution-card">
+                <h3>Patient Engagement</h3>
+                <p>Intelligent assistants improving communication between hospitals and patients.</p>
+            </div>
+
+            <div class="solution-card">
+                <h3>Clinical Automation</h3>
+                <p>Workflow optimization tools that reduce administrative burden on clinicians.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="members" id="team">
         <h2>Founding Team</h2>
         <div class="members-grid">
 
@@ -276,7 +89,7 @@
         </div>
     </section>
 
-    <section class="contact">
+    <section class="contact" id="contact">
         <h2>Let’s Build the Future of Care</h2>
 
         <form action="https://formspree.io/f/mrbydpak" method="POST" class="contact-form">
